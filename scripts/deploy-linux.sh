@@ -1,6 +1,6 @@
 #!/bin/bash
 # Linux deployment script
-# Usage: ./scripts/deploy-linux.sh "EZ4Connect" "EZ4Connect" "build" "x86_64"
+# Usage: ./scripts/deploy-linux.sh "EZ4Connect" "EZ4Connect" "build" "x86_64" "false"
 
 set -euo pipefail
 
@@ -8,6 +8,7 @@ TARGET_NAME="${1:-EZ4Connect}"
 DISPLAY_NAME="${2:-EZ4Connect}"
 BUILD_DIR="${3:-build}"
 ARCH="${4:-x86_64}"
+NIGHTLY="${5:-false}"
 
 # Determine AppImage tool architecture
 if [ "$ARCH" = "x86_64" ]; then
@@ -48,7 +49,12 @@ if [ "$ARCH" = "x86_64" ]; then
     ZJU_ARCH="amd64"
 fi
 
-wget -O "zju-connect-linux-$ZJU_ARCH.zip" "https://github.com/Mythologyli/zju-connect/releases/latest/download/zju-connect-linux-$ZJU_ARCH.zip"
+ZJU_RELEASE_PATH="latest/download"
+if [ "$NIGHTLY" = "true" ]; then
+    ZJU_RELEASE_PATH="download/nightly"
+fi
+
+wget -O "zju-connect-linux-$ZJU_ARCH.zip" "https://github.com/Mythologyli/zju-connect/releases/$ZJU_RELEASE_PATH/zju-connect-linux-$ZJU_ARCH.zip"
 unzip -o "zju-connect-linux-$ZJU_ARCH.zip"
 cp zju-connect AppDir/usr/bin/
 rm "zju-connect-linux-$ZJU_ARCH.zip"

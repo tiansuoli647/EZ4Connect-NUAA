@@ -1,11 +1,12 @@
 # Windows deployment script
-# Usage: .\deploy-windows.ps1 -TargetName "EZ4Connect" -DisplayName "EZ4Connect" -BuildDir "build" -Architecture "amd64"
+# Usage: .\deploy-windows.ps1 -TargetName "EZ4Connect" -DisplayName "EZ4Connect" -BuildDir "build" -Architecture "amd64" -Nightly "false"
 
 param(
     [string]$TargetName = "EZ4Connect",
     [string]$DisplayName = "EZ4Connect",
     [string]$BuildDir = "build",
-    [string]$Architecture = "amd64"
+    [string]$Architecture = "amd64",
+    [string]$Nightly = "false"
 )
 
 Import-Module -Name Microsoft.PowerShell.Utility
@@ -21,7 +22,8 @@ Copy-Item -Path "../$BuildDir/Release/$TargetName.exe" -Destination .
 & windeployqt.exe "$TargetName.exe"
 
 # Download and extract zju-connect
-$ZjuUrl = "https://github.com/Mythologyli/zju-connect/releases/latest/download/zju-connect-windows-$Architecture.zip"
+$ZjuReleasePath = if ($Nightly -eq "true") { "download/nightly" } else { "latest/download" }
+$ZjuUrl = "https://github.com/Mythologyli/zju-connect/releases/$ZjuReleasePath/zju-connect-windows-$Architecture.zip"
 $ZjuZipPath = "zju-connect-windows-$Architecture.zip"
 Invoke-WebRequest -Uri $ZjuUrl -OutFile $ZjuZipPath
 Expand-Archive -Path $ZjuZipPath -DestinationPath . -Force

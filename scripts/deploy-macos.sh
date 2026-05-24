@@ -1,12 +1,13 @@
 #!/bin/bash
 # macOS deployment script
-# Usage: ./scripts/deploy-macos.sh "EZ4Connect" "build" "amd64"
+# Usage: ./scripts/deploy-macos.sh "EZ4Connect" "build" "amd64" "false"
 
 set -euo pipefail
 
 TARGET_NAME="${1:-EZ4Connect}"
 BUILD_DIR="${2:-build}"
 ARCH="${3:-arm64}"
+NIGHTLY="${4:-false}"
 APP_PATH="$TARGET_NAME.app"
 
 # Copy app bundle
@@ -18,7 +19,12 @@ if [ "$ARCH" = "x86_64" ]; then
     ZJU_ARCH="amd64"
 fi
 
-curl -LO "https://github.com/Mythologyli/zju-connect/releases/latest/download/zju-connect-darwin-$ZJU_ARCH.zip"
+ZJU_RELEASE_PATH="latest/download"
+if [ "$NIGHTLY" = "true" ]; then
+    ZJU_RELEASE_PATH="download/nightly"
+fi
+
+curl -LO "https://github.com/Mythologyli/zju-connect/releases/$ZJU_RELEASE_PATH/zju-connect-darwin-$ZJU_ARCH.zip"
 unzip -o "zju-connect-darwin-$ZJU_ARCH.zip"
 rm "zju-connect-darwin-$ZJU_ARCH.zip"
 
