@@ -95,6 +95,13 @@ void MainWindow::initZjuConnect()
         emit WriteToProcess(smsCode.toLocal8Bit() + "\n");
     });
 
+    connect(zjuConnectController, &ZjuConnectController::totpCode, this, [&]() {
+        addLog("需要 TOTP 验证码");
+        QString totp = QInputDialog::getText(this, "TOTP 验证码", "请输入 TOTP 验证码：");
+        addLog("TOTP 验证码用户输入：" + totp);
+        emit WriteToProcess(totp.toLocal8Bit() + "\n");
+    });
+
     connect(zjuConnectController, &ZjuConnectController::ssoAuth, this, [&]() {
         ssoLoginWebView = new SsoLoginWebView(this);
         connect(ssoLoginWebView, &SsoLoginWebView::loginCompleted,

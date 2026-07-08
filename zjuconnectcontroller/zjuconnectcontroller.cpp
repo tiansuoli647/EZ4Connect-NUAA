@@ -52,6 +52,10 @@ ZjuConnectController::ZjuConnectController(QWidget* parent) : QObject(parent)
             {
                 emit smsCode();
             }
+            else if (output.contains("Please enter your TOTP code:"))
+            {
+                emit totpCode();
+            }
             else if (output.contains("Please enter the callback url:"))
             {
                 emit ssoAuth();

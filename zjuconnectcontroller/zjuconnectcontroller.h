@@ -86,6 +86,8 @@ signals:
 
     void smsCode();
 
+    void totpCode();
+
     void ssoAuth();
 
     void askSudoPass();
