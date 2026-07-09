@@ -212,31 +212,48 @@ bool macOSIsSystemProxySet(macOSProxyType proxyType, const QString networkServic
 
 void macOSSetSystemProxy(macOSProxyType proxyType, const QString &networkService, const QString &proxyServer, int port)
 {
-    QStringList args;
+    QStringList setArgs, enableArgs;
     switch (proxyType)
     {
     case macOSProxyType::WebProxy:
-        args << "-setwebproxy";
+        setArgs << "-setwebproxy";
+        enableArgs << "-setwebproxystate";
         break;
     case macOSProxyType::SecureWebProxy:
-        args << "-setsecurewebproxy";
+        setArgs << "-setsecurewebproxy";
+        enableArgs << "-setsecurewebproxystate";
         break;
     case macOSProxyType::SOCKSFirewallProxy:
-        args << "-setsocksfirewallproxy";
+        setArgs << "-setsocksfirewallproxy";
+        enableArgs << "-setsocksfirewallproxystate";
         break;
     }
-    args << networkService << proxyServer << QString::number(port);
-    QProcess process;
-    process.start(macOSNetworkSetupPath, args);
-    process.waitForFinished();
-    if (process.error() != QProcess::UnknownError)
+    setArgs << networkService << proxyServer << QString::number(port);
+    QProcess setProcess;
+    setProcess.start(macOSNetworkSetupPath, setArgs);
+    setProcess.waitForFinished();
+    if (setProcess.error() != QProcess::UnknownError)
     {
-        QMessageBox::critical(nullptr, "设置系统代理失败", "执行命令失败：" + process.errorString());
+        QMessageBox::critical(nullptr, "设置系统代理失败", "执行命令失败：" + setProcess.errorString());
         return;
     }
-    if (process.exitCode() != 0)
+    if (setProcess.exitCode() != 0)
     {
-        QMessageBox::critical(nullptr, "设置系统代理失败", "无法设置系统代理：" + process.readAllStandardError());
+        QMessageBox::critical(nullptr, "设置系统代理失败", "无法设置系统代理：" + setProcess.readAllStandardError());
+        return;
+    }
+    enableArgs << networkService << "on";
+    QProcess enableProcess;
+    enableProcess.start(macOSNetworkSetupPath, enableArgs);
+    enableProcess.waitForFinished();
+    if (enableProcess.error() != QProcess::UnknownError)
+    {
+        QMessageBox::critical(nullptr, "启用系统代理失败", "执行命令失败：" + enableProcess.errorString());
+        return;
+    }
+    if (enableProcess.exitCode() != 0)
+    {
+        QMessageBox::critical(nullptr, "启用系统代理失败", "无法启用系统代理：" + enableProcess.readAllStandardError());
         return;
     }
 }
