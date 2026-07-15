@@ -208,6 +208,14 @@ MainWindow::MainWindow(QWidget *parent) :
             }
     );
 
+    // 清空日志
+    connect(ui->clearLogPushButton, &QPushButton::clicked,
+            [&]()
+            {
+                ui->logPlainTextEdit->clear();
+            }
+    );
+
     connect(this, &MainWindow::SetModeFinished, this,
 			[&]()
 		    {
