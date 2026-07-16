@@ -1,6 +1,10 @@
 #include <QMessageBox>
 #include <QCheckBox>
+#include <QDialogButtonBox>
 #include <QInputDialog>
+#include <QLabel>
+#include <QLineEdit>
+#include <QVBoxLayout>
 #include <QApplication>
 
 #include "mainwindow.h"
@@ -89,11 +93,43 @@ void MainWindow::initZjuConnect()
             });
         });
 
-    connect(zjuConnectController, &ZjuConnectController::smsCode, this, [&]() {
+    connect(zjuConnectController, &ZjuConnectController::smsCode, this, [&](bool showSkipSecondaryAuthOption) {
         addLog("需要短信验证码");
-        QString smsCode = QInputDialog::getText(this, "短信验证码", "请输入短信验证码：");
-        addLog("短信验证码用户输入：" + smsCode);
-        emit WriteToProcess(smsCode.toLocal8Bit() + "\n");
+
+        QDialog smsCodeDialog(this);
+        smsCodeDialog.setWindowTitle("短信验证码");
+
+        auto *dialogLayout = new QVBoxLayout(&smsCodeDialog);
+        dialogLayout->addWidget(new QLabel("请输入短信验证码：", &smsCodeDialog));
+
+        auto *smsCodeLineEdit = new QLineEdit(&smsCodeDialog);
+        dialogLayout->addWidget(smsCodeLineEdit);
+
+        auto *skipSecondaryAuthCheckBox = new QCheckBox("跳过以后的短信验证", &smsCodeDialog);
+        skipSecondaryAuthCheckBox->setVisible(showSkipSecondaryAuthOption);
+        dialogLayout->addWidget(skipSecondaryAuthCheckBox);
+
+        auto *buttonBox = new QDialogButtonBox(
+            QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &smsCodeDialog);
+        connect(buttonBox, &QDialogButtonBox::accepted, &smsCodeDialog, &QDialog::accept);
+        connect(buttonBox, &QDialogButtonBox::rejected, &smsCodeDialog, &QDialog::reject);
+        dialogLayout->addWidget(buttonBox);
+
+        QString smsCode;
+        bool skipSecondaryAuth = false;
+        if (smsCodeDialog.exec() == QDialog::Accepted)
+        {
+            smsCode = smsCodeLineEdit->text();
+            skipSecondaryAuth = showSkipSecondaryAuthOption && skipSecondaryAuthCheckBox->isChecked();
+        }
+
+        addLog("短信验证码用户输入：" + smsCode + (skipSecondaryAuth ? " (跳过以后的短信验证)" : ""));
+        QByteArray smsCodeInput = smsCode.toLocal8Bit();
+        if (skipSecondaryAuth)
+        {
+            smsCodeInput.prepend('$');
+        }
+        emit WriteToProcess(smsCodeInput + "\n");
     });
 
     connect(zjuConnectController, &ZjuConnectController::totpCode, this, [&]() {
