@@ -9,10 +9,6 @@
 
 改进的 ZJU-Connect 图形界面，默认配置预设为南京航空航天大学易连 (EasyConnect) 协议连接参数。
 
-## 🎉 现已正式提供 aTrust 支持
-
-如使用中遇到问题，可加入 ZJU-Connect 用户反馈 QQ 群 1037726410 交流。
-
 ## 使用方式
 
 1. 在本项目的 [Releases](https://github.com/chenx-dust/EZ4Connect/releases) 页面下载最新版本：
