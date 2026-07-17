@@ -491,6 +491,7 @@ void Utils::resetDefaultSettings(QSettings& settings)
     settings.setValue("ZJUConnect/MultiLine", false);
     settings.setValue("ZJUConnect/KeepAlive", false);
     settings.setValue("ZJUConnect/KeepAliveURL", "");
+    settings.setValue("ZJUConnect/BindInterface", "");
     settings.setValue("ZJUConnect/OutsideAccess", false);
 
     settings.setValue("ZJUConnect/SkipDomainResource", false);
@@ -506,6 +507,7 @@ void Utils::resetDefaultSettings(QSettings& settings)
     settings.setValue("ZJUConnect/DNSHijack", false);
     settings.setValue("ZJUConnect/FakeIP", false);
     settings.setValue("ZJUConnect/TCPTunnelMode", false);
+    settings.setValue("ZJUConnect/AutoDetectInterface", false);
 
 
     settings.setValue("ZJUConnect/TCPPortForwarding", "");

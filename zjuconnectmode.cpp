@@ -318,6 +318,8 @@ void MainWindow::initZjuConnect()
                             !settings->value("ZJUConnect/MultiLine").toBool(),
                             !settings->value("ZJUConnect/KeepAlive").toBool(),
                             settings->value("ZJUConnect/KeepAliveURL", "").toString(),
+                            settings->value("ZJUConnect/BindInterface", "").toString(),
+                            settings->value("ZJUConnect/AutoDetectInterface", false).toBool(),
                             settings->value("ZJUConnect/SkipDomainResource").toBool(),
                             settings->value("ZJUConnect/DisableServerConfig").toBool(),
                             settings->value("ZJUConnect/ProxyAll").toBool(),

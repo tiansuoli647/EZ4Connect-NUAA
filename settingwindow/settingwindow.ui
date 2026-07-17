@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>514</width>
-    <height>727</height>
+    <width>520</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -919,10 +919,20 @@
            </property>
           </widget>
          </item>
-         <item row="4" column="1" colspan="2">
+         <item row="4" column="1">
           <widget class="QCheckBox" name="tcpTunnelModeCheckBox">
            <property name="text">
-            <string>禁用 L3 隧道（aTrust 兼容模式）</string>
+            <string>禁用 L3 隧道</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="2">
+          <widget class="QCheckBox" name="autoDetectInterfaceCheckBox">
+           <property name="toolTip">
+            <string>自动检测并绑定 VPN 底层网络接口</string>
+           </property>
+           <property name="text">
+            <string>自动检测网口</string>
            </property>
           </widget>
          </item>
@@ -1003,6 +1013,20 @@
          </property>
         </widget>
        </item>
+       <item row="12" column="1" colspan="3">
+        <widget class="QLineEdit" name="bindInterfaceLineEdit">
+         <property name="placeholderText">
+          <string>用于建立连接的网络接口，留空为自动选择</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="0">
+        <widget class="QLabel" name="zjuConnectTabLabel6_5">
+         <property name="text">
+          <string>绑定网络接口</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </widget>
@@ -1028,6 +1052,8 @@
   <tabstop>httpPortSpinBox</tabstop>
   <tabstop>multiLineCheckBox</tabstop>
   <tabstop>keepAliveCheckBox</tabstop>
+  <tabstop>keepAliveUrlLineEdit</tabstop>
+  <tabstop>bindInterfaceLineEdit</tabstop>
   <tabstop>outsideAccessCheckBox</tabstop>
   <tabstop>portForwardingPushButton</tabstop>
  </tabstops>

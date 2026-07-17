@@ -52,6 +52,8 @@ public:
         bool disableMultiLine,
         bool disableKeepAlive,
         const QString& keepAliveUrl,
+        const QString& bindInterface,
+        bool autoDetectInterface,
         bool skipDomainResource,
         bool disableServerConfig,
         bool proxyAll,

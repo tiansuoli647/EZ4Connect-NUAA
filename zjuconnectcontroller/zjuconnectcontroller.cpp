@@ -221,6 +221,8 @@ void ZjuConnectController::start(
     bool disableMultiLine,
     bool disableKeepAlive,
     const QString& keepAliveUrl,
+    const QString& bindInterface,
+    bool autoDetectInterface,
     bool skipDomainResource,
     bool disableServerConfig,
     bool proxyAll,
@@ -336,6 +338,17 @@ void ZjuConnectController::start(
     {
         args.append("-keep-alive-url");
         args.append(keepAliveUrl);
+    }
+
+    if (!bindInterface.isEmpty())
+    {
+        args.append("-bind-interface");
+        args.append(bindInterface);
+    }
+
+    if (autoDetectInterface)
+    {
+        args.append("-auto-detect-interface");
     }
 
     if (disableZjuConfig)

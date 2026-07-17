@@ -243,6 +243,7 @@ void SettingWindow::loadSettings()
     ui->multiLineCheckBox->setChecked(settings->value("ZJUConnect/MultiLine").toBool());
     ui->keepAliveCheckBox->setChecked(settings->value("ZJUConnect/KeepAlive").toBool());
     ui->keepAliveUrlLineEdit->setText(settings->value("ZJUConnect/KeepAliveURL", "").toString());
+    ui->bindInterfaceLineEdit->setText(settings->value("ZJUConnect/BindInterface", "").toString());
     ui->outsideAccessCheckBox->setChecked(settings->value("ZJUConnect/OutsideAccess").toBool());
 
     ui->skipDomainResourceCheckBox->setChecked(settings->value("ZJUConnect/SkipDomainResource").toBool());
@@ -258,6 +259,7 @@ void SettingWindow::loadSettings()
     ui->dnsHijackCheckBox->setChecked(settings->value("ZJUConnect/DNSHijack").toBool());
     ui->fakeIPCheckBox->setChecked(settings->value("ZJUConnect/FakeIP").toBool());
     ui->tcpTunnelModeCheckBox->setChecked(settings->value("ZJUConnect/TCPTunnelMode").toBool());
+    ui->autoDetectInterfaceCheckBox->setChecked(settings->value("ZJUConnect/AutoDetectInterface", false).toBool());
 
     tcpPortForwarding = settings->value("ZJUConnect/TCPPortForwarding").toString();
     udpPortForwarding = settings->value("ZJUConnect/UDPPortForwarding").toString();
@@ -328,6 +330,7 @@ void SettingWindow::applySettings()
     settings->setValue("ZJUConnect/MultiLine", ui->multiLineCheckBox->isChecked());
     settings->setValue("ZJUConnect/KeepAlive", ui->keepAliveCheckBox->isChecked());
     settings->setValue("ZJUConnect/KeepAliveURL", ui->keepAliveUrlLineEdit->text().trimmed());
+    settings->setValue("ZJUConnect/BindInterface", ui->bindInterfaceLineEdit->text().trimmed());
     settings->setValue("ZJUConnect/OutsideAccess", ui->outsideAccessCheckBox->isChecked());
 
     settings->setValue("ZJUConnect/SkipDomainResource", ui->skipDomainResourceCheckBox->isChecked());
@@ -343,6 +346,7 @@ void SettingWindow::applySettings()
     settings->setValue("ZJUConnect/DNSHijack", ui->dnsHijackCheckBox->isChecked());
     settings->setValue("ZJUConnect/FakeIP", ui->fakeIPCheckBox->isChecked());
     settings->setValue("ZJUConnect/TCPTunnelMode", ui->tcpTunnelModeCheckBox->isChecked());
+    settings->setValue("ZJUConnect/AutoDetectInterface", ui->autoDetectInterfaceCheckBox->isChecked());
 
 
     settings->setValue("ZJUConnect/TCPPortForwarding", tcpPortForwarding);
