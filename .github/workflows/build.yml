@@ -227,6 +227,8 @@ jobs:
   release:
     runs-on: ubuntu-latest
     if: github.event_name == 'release'
+    permissions:
+      contents: write
     needs:
       - build-windows-x64
       - build-windows-arm64
