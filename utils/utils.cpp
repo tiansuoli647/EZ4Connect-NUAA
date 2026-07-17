@@ -469,7 +469,7 @@ void Utils::resetDefaultSettings(QSettings& settings)
     settings.setValue("Common/SystemProxyBypass", "");
 
 
-    settings.setValue("ZJUConnect/ServerAddress", "trust.hitsz.edu.cn");
+    settings.setValue("ZJUConnect/ServerAddress", "v.nuaa.edu.cn");
     settings.setValue("ZJUConnect/ServerPort", 443);
     settings.setValue("ZJUConnect/DNS", "");
     settings.setValue("ZJUConnect/DNSAuto", true);
@@ -481,20 +481,20 @@ void Utils::resetDefaultSettings(QSettings& settings)
     settings.setValue("ZJUConnect/DialDirectProxy", "");
     settings.setValue("ZJUConnect/UpdateBestNodesInterval", 300);
 
-    settings.setValue("ZJUConnect/Protocol", "atrust");
-    settings.setValue("ZJUConnect/LoginDomain", "hitcas");
-    settings.setValue("ZJUConnect/AuthType", "cas");
+    settings.setValue("ZJUConnect/Protocol", "easyconnect");
+    settings.setValue("ZJUConnect/LoginDomain", "");
+    settings.setValue("ZJUConnect/AuthType", "psw");
     settings.setValue("ZJUConnect/LoginURL", "");
     settings.setValue("ZJUConnect/PhoneCountryCode", "86");
     settings.setValue("ZJUConnect/PhoneNumber", "");
 
-    settings.setValue("ZJUConnect/MultiLine", false);
+    settings.setValue("ZJUConnect/MultiLine", true);
     settings.setValue("ZJUConnect/KeepAlive", false);
     settings.setValue("ZJUConnect/KeepAliveURL", "");
     settings.setValue("ZJUConnect/BindInterface", "");
-    settings.setValue("ZJUConnect/OutsideAccess", false);
+    settings.setValue("ZJUConnect/OutsideAccess", true);
 
-    settings.setValue("ZJUConnect/SkipDomainResource", false);
+    settings.setValue("ZJUConnect/SkipDomainResource", true);
     settings.setValue("ZJUConnect/DisableServerConfig", false);
     settings.setValue("ZJUConnect/ProxyAll", false);
 
@@ -513,7 +513,7 @@ void Utils::resetDefaultSettings(QSettings& settings)
     settings.setValue("ZJUConnect/TCPPortForwarding", "");
     settings.setValue("ZJUConnect/UDPPortForwarding", "");
     settings.setValue("ZJUConnect/CustomDNS", "");
-    settings.setValue("ZJUConnect/CustomProxyDomain", "");
+    settings.setValue("ZJUConnect/CustomProxyDomain", "nuaa.edu.cn");
     settings.setValue("ZJUConnect/ExtraArguments", "");
 
     settings.setValue("Common/ConfigVersion", Utils::CONFIG_VERSION);
